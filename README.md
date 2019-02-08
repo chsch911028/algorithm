@@ -219,3 +219,43 @@ public class Main{
 
 ~~~
 
+# 3. 동적 프로그래밍(Dynamic Programming)
+> **동적 프로그래밍**이란?
+부분 문제를 해결하여 전체 문제를 해결하는 알고리즘 방법
+
+### _동적 프로그래밍 vs 분할 정복법_
+* 동적 프로그래밍(Bottom Up) : "나" 보다 작은 문제의 풀이를 먼저 해결하고 *기억!* 즉, 밑에서 부터 해결해 올라오는 방식
+* 분할 정복법(Top Down) : 큰 문제를 쪼개 내려가는 방식
+
+### 동적 프로그래밍 설계
+1. 부분 문제를 명확하게 정의한다
+2. 점화식을 구한다
+3. 점화식을 기반으로 문제를 해결한다
+
+_[예] 피보나치 수 구하기
+
+~~~
+ulong fibonacci_with_dynamic(int n) {
+  int i = 0;
+  ulong result = 0;
+  ulong* fibonacci_tbl = 0;
+
+  if (n == 0 || n == 1) {
+    return n;
+  }
+
+  fibonacci_tbl = (ulong*) malloc((n+1) * sizeof(ulong));
+  fibonacci_tbl[0] = 0;
+  fibonacci_tbl[1] = 1;
+
+  for (i = 2; i <= n; i++) {
+    fibonacci_tbl[i] = fibonacci_tbl[i - 1] + fibonacci_tbl[i - 2];
+  }
+
+  result = fibonacci_tbl[n];
+
+  free(fibonacci_tbl);
+
+  return result;
+}
+~~~
