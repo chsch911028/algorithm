@@ -259,3 +259,6 @@ ulong fibonacci_with_dynamic(int n) {
   return result;
 }
 ~~~
+
+
+# 4. 시뮬레이션/완전탐색 (Brute Force)
