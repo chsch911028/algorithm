@@ -25,7 +25,7 @@
 
 _[예] 이진탐색, 합병정렬, 퀵정렬, 최대값 찾기 등_
 
-~~~
+~~~java
 //합병정렬 알고리즘 구현
 
 import java.util.Scanner;
@@ -122,7 +122,7 @@ public class Main{
 3. 해결한 문제에 대한 로직을 구현한다
 
 _[예] 팩토리얼 문제_
-~~~
+~~~java
 //좋은 순열로 이루어진 수 중 가장 작은 값을 판단하는 문제
 
 import java.util.Scanner;
@@ -245,7 +245,7 @@ public class Main{
 
 _[예] 피보나치 수 구하기_
 
-~~~
+~~~java
 ulong fibonacci_with_dynamic(int n) {
   int i = 0;
   ulong result = 0;
@@ -273,7 +273,7 @@ ulong fibonacci_with_dynamic(int n) {
 
 _[예] 카드놀이_
 
-~~~
+~~~java
 /*
 문제 : N 개의 카드가 주어질때, 숫자의 합이 최대가 되도록 카드를 뽑고, 그 최대 수를 출력하세요. (단, 3개의 연속된 순서로 있는 카드를 뽑을 수는 없음)
 */
