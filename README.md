@@ -232,7 +232,7 @@ public class Main{
 2. 점화식을 구한다
 3. 점화식을 기반으로 문제를 해결한다
 
-_[예] 피보나치 수 구하기
+_[예] 피보나치 수 구하기_
 
 ~~~
 ulong fibonacci_with_dynamic(int n) {
@@ -260,5 +260,80 @@ ulong fibonacci_with_dynamic(int n) {
 }
 ~~~
 
+_[예] 카드놀이_
+
+~~~
+/*
+문제 : N 개의 카드가 주어질때, 숫자의 합이 최대가 되도록 카드를 뽑고, 그 최대 수를 출력하세요. (단, 3개의 연속된 순서로 있는 카드를 뽑을 수는 없음)
+*/
+
+import java.util.Scanner;
+public class Main{
+    public static void main(String[] args){
+      //PASS
+      // Please Enter Your Code Here
+      Scanner sc = new Scanner(System.in);
+      int n = sc.nextInt();
+      int num[] = new int[n];
+      for(int i=0; i<n; i++){
+        num[i] = sc.nextInt();
+      }
+      
+      //
+      //T[i] = num의 i번째 숫자들의 합 중 가장큰 최대값
+      int T[] = new int[n];
+          T[0] = num[0];
+          T[1] = T[0]+num[1];
+      int count = 2;
+      
+      //T[2] 설정 -> 연속되는 3수를 판단해야 하므로 여기까지는 미리 설정
+      
+      T[2] = num[2];
+      if(num[2]+num[1] > T[1]){
+        T[2] = num[2]+num[1];
+        count = 2;
+      }else if(num[2]+num[0] > T[1]){
+        T[2] = num[2]+num[0];
+        count = 1;
+      }else{
+        T[2] = T[1];
+        count = 0;
+      }
+      // System.out.println(T[2]+"/"+count);
+      for(int i=3; i<n; i++){
+        // System.out.println(i+"////////////////");
+        //if count < 2 then T[i] = T[i-1] + num[i]; 
+        if(count<2){
+          T[i] = T[i-1] + num[i];
+          count++; // 현재 num이 참여 했기때문에
+        }else{
+          //else(count >=2) 현재 2수가 연속되므로 2가지 경우 고려
+          //1.num[i] 즉, 새로운수가 참여하는게 더 커지는 경우
+          //T[i-1] < T[i-2] + num[i]
+          if(T[i-1] < T[i-2] + num[i]){
+            T[i] = T[i-2] + num[i];
+            count = 1;
+          }else{
+            //2.num[i] 즉, 새로운수를 참여시키지 않는 경우
+            //* 같은 경우: 현재수를 사용하지 않는것이 유리함
+            //왜? 연속되는 카운트를 안해줘도 되기 때문에  
+            T[i] = T[i-1];
+            count = 0;
+          }
+          
+          // T[i-3]+num[i]+num[i-1] 위에서 고려한 경우보다 큰경우
+          if(T[i-3]+num[i]+num[i-1] > T[i]){
+            T[i] = T[i-3]+num[i]+num[i-1];
+            count = 2;
+          }
+        }
+        // System.out.println(count+"/"+T[i]);
+      } // for i end
+      
+      System.out.println(T[n-1]);
+    }
+}
+
+~~~
 
 # 4. 시뮬레이션/완전탐색 (Brute Force)
