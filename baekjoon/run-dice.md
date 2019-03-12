@@ -117,3 +117,121 @@
 ## 알고리즘 분류
 
 [보기](https://www.acmicpc.net/problem/14499#)
+
+## 코드
+
+```java
+package test;
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class RunDice {
+
+	public static void main(String[] args) throws IOException {
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+
+		int r = Integer.parseInt(st.nextToken());
+		int c = Integer.parseInt(st.nextToken());
+
+		int x = Integer.parseInt(st.nextToken());
+		int y = Integer.parseInt(st.nextToken());
+
+		int cnt = Integer.parseInt(st.nextToken());
+
+		//
+		int[][] map = new int[r][c];
+		for(int i=0; i<r; i++) {
+			st = new StringTokenizer(br.readLine());
+			for(int j=0; j<c; j++) {
+				map[i][j] = Integer.parseInt(st.nextToken());
+			}
+		}
+
+		//dice
+		int[] dice = new int[6];
+
+
+		// 우, 좌, 상, 하
+		int[] di = { 0, 0, -1, 1};
+		int[] dj = { 1, -1, 0, 0};
+
+		st = new StringTokenizer(br.readLine());
+		for(int i=0; i<cnt; i++) {
+			int dir = Integer.parseInt(st.nextToken());
+			dir--;
+			int ni = x + di[dir];
+			int nj = y + dj[dir];
+
+			if(ni < 0 || ni >= r || nj <0 || nj >= c) { continue; }
+
+			move_dice(dice, dir);
+
+			if(map[ni][nj] == 0) {
+				map[ni][nj] = dice[5];
+			}else {
+				dice[5] = map[ni][nj];
+				map[ni][nj] = 0;
+			}
+
+			x = ni;
+			y = nj;
+
+			System.out.println(dice[2]);
+
+		}
+
+	}
+
+	public static void move_dice(int[] dice, int dir) {
+		int[] ndice = new int[6];
+
+		switch(dir) {
+			case 0: // 우
+				ndice[0] = dice[0];
+				ndice[1] = dice[5];
+				ndice[2] = dice[1];
+				ndice[3] = dice[2];
+				ndice[4] = dice[4];
+				ndice[5] = dice[3];
+				break;
+			case 1: // 좌
+				ndice[0] = dice[0];
+				ndice[1] = dice[2];
+				ndice[2] = dice[3];
+				ndice[3] = dice[5];
+				ndice[4] = dice[4];
+				ndice[5] = dice[1];
+				break;
+			case 2: // 상
+				ndice[0] = dice[2];
+				ndice[1] = dice[1];
+				ndice[2] = dice[4];
+				ndice[3] = dice[3];
+				ndice[4] = dice[5];
+				ndice[5] = dice[0];
+				break;
+			case 3: // 하
+				ndice[0] = dice[5];
+				ndice[1] = dice[1];
+				ndice[2] = dice[0];
+				ndice[3] = dice[3];
+				ndice[4] = dice[2];
+				ndice[5] = dice[4];
+				break;
+			default: break;
+		}
+
+		for(int i=0; i<6; i++) {
+			dice[i] = ndice[i];
+		}
+	}
+
+}
+
+```
